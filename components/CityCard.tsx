@@ -1,15 +1,62 @@
-import { Box, Image } from '@chakra-ui/react';
+import React from 'react';
+import { Box, Image, Heading, useState } from '@chakra-ui/react';
 
-interface CityCardProps {
-  imageUrl: string;
+interface CityCardWithInfoProps {
+  cityName: string;
 }
 
-const CityCard: React.FC<CityCardProps> = ({ imageUrl }) => {
-  return (
-    <Box borderWidth="1px" borderRadius="lg" overflow="hidden" boxShadow="md">
-      <Image src={imageUrl} alt="City" width="100%" height={200} />
-    </Box>
-  );
-};
+class CityCardWithInfo extends React.Component<CityCardWithInfoProps> {
+  state = {
+    cityInfo: null,
+  };
 
-export default CityCard;
+  async getCityInfo() {
+    try {
+      const cityInfo = cities.find(city => city.name.toLowerCase() === this.props.cityName.toLowerCase());
+      if (!cityInfo) {
+        return null;
+      }
+
+      this.setState({
+        cityInfo,
+      });
+    } catch (error) {
+      console.error('Error fetching city information:', error);
+      this.setState({
+        cityInfo: null,
+      });
+    }
+  }
+
+  render() {
+    const cityInfo = this.state.cityInfo;
+    const imageUrl = cityInfo?.imageUrl || '';
+
+    return (
+      <Box
+        borderWidth="1px"
+        borderRadius="lg"
+        overflow="hidden"
+        boxShadow="md"
+        key={this.props.cityName}
+      >
+        <Image src={imageUrl} alt="City" width="100%" height={200} />
+        <Box>
+          {cityInfo ? (
+            <Heading as="h3">{cityInfo.name}</Heading>
+          ) : (
+            <p>No city information available</p>
+          )}
+          {cityInfo ? (
+            <p>{cityInfo.country}</p>
+          ) : null}
+          {imageUrl ? null : (
+            <p>No image available</p>
+          )}
+        </Box>
+      </Box>
+    );
+  }
+}
+
+export default CityCardWithInfo;
