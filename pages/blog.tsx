@@ -1,5 +1,6 @@
 import React from 'react';
 import MainLayout from '../layouts/MainLayout.tsx';
+import Link from 'next/link';
 
 const BlogPage: React.FC = () => {
   const blogPosts = [

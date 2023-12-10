@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Image, Heading } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 interface CityCardWithInfoProps {
   cityInfo: {

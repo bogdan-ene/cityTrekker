@@ -1,45 +1,43 @@
-import React, { useState } from 'react';
-import { Box, Flex, Heading, Spacer, Button, IconButton, useColorMode, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
-import { SunIcon, MoonIcon, ChevronDownIcon } from '@chakra-ui/icons';
+import React from 'react';
+import { Box, Flex, Heading, useColorMode, Link, IconButton } from '@chakra-ui/react';
+import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 
-const Header: React.FC = () => {
-  const [showDropdown, setShowDropdown] = useState<boolean>(false);
+const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
-  const handleDropdownToggle = (): void => {
-    setShowDropdown(!showDropdown);
-  };
+  const menuItems = [
+    { label: 'Home', path: '/' },
+    { label: 'About', path: '/about' },
+    { label: 'Services', path: '/services' },
+    { label: 'Portfolio', path: '/portfolio' },
+    { label: 'Blog', path: '/blog' },
+    { label: 'Contact', path: '/contact' },
+  ];
 
   return (
     <Box as="header" bg="teal.500" py={4} px={6} color="white">
-      <Flex align="center">
-        <Box>
-          <Heading as="h1" fontSize="xl" fontWeight="bold">
-            Your Logo
-          </Heading>
-        </Box>
-        <Spacer />
+      <Flex align="center" justify="space-between">
         <Flex align="center">
-          <Button variant="ghost" mr={3}>
-            Home
-          </Button>
-          <Button variant="ghost" mr={3}>
-            About
-          </Button>
-          <Button variant="ghost" mr={3}>
-            Services
-          </Button>
-          <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />} variant="ghost" onClick={handleDropdownToggle}>
-              More
-            </MenuButton>
-            <MenuList display={showDropdown ? 'block' : 'none'} zIndex="9999">
-              <MenuItem>Portfolio</MenuItem>
-              <MenuItem>Blog</MenuItem>
-              <MenuItem>Contact</MenuItem>
-            </MenuList>
-          </Menu>
-          <Spacer />
+          {menuItems.map((item, index) => (
+            <Link
+              href={item.path}
+              key={index}
+              color="white"
+              fontSize="sm"
+              fontWeight="bold"
+              padding="12px 20px"
+              borderRadius="4px"
+              textDecoration="none"
+              marginRight="12px"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </Flex>
+        <Flex align="center">
+          <Heading as="h1" fontSize="xl" fontWeight="bold" mr={4}>
+            #city-trekker
+          </Heading>
           <IconButton
             aria-label="Toggle dark mode"
             icon={colorMode === 'dark' ? <SunIcon /> : <MoonIcon />}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import MainLayout from '../layouts/MainLayout.tsx';
+import Link from 'next/link';
 
 const PortfolioPage: React.FC = () => {
   const [cities, setCities] = useState([]);
@@ -20,7 +21,7 @@ const PortfolioPage: React.FC = () => {
 
   return (
     <MainLayout>
-      <div className="portfolio-content">
+      {/* <div className="portfolio-content">
         <h1>City Trekker Portfolio</h1>
         <p>Explore our portfolio of cities</p>
         <div className="portfolio-items">
@@ -32,7 +33,7 @@ const PortfolioPage: React.FC = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </MainLayout>
   );
 };
